@@ -48,7 +48,6 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.registry.EntityEntry;
 import net.minecraftforge.fml.relauncher.Side;
-import net.narutomod.gui.GuiMedicalScrollGUI;
 
 public class ElementsAgeofshinobiaddonMod implements IFuelHandler, IWorldGenerator {
     public final List<ModElement> elements = new ArrayList();
