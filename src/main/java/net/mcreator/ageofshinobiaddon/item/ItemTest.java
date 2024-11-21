@@ -1,6 +1,6 @@
 package net.mcreator.ageofshinobiaddon.item;
 
-import net.mcreator.ageofshinobiaddon.ElementsAhznbrusticaddonMod;
+import net.mcreator.ageofshinobiaddon.ElementsAgeofshinobiaddonMod;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.Item;
@@ -15,20 +15,20 @@ import net.narutomod.creativetab.TabModTab;
 import net.narutomod.entity.EntityHidingInAsh;
 import net.narutomod.item.ItemJutsu;
 
-@ElementsAhznbrusticaddonMod.ModElement.Tag
-public class ItemTest extends ElementsAhznbrusticaddonMod.ModElement {
-    @GameRegistry.ObjectHolder("ahnzbrusticaddon:test")
+@ElementsAgeofshinobiaddonMod.ModElement.Tag
+public class ItemTest extends ElementsAgeofshinobiaddonMod.ModElement {
+    @GameRegistry.ObjectHolder("ageofshinobiaddon:test")
     public static final Item block = null;
     public static final int ENTITYID = 123;
     public static final int ENTITY2ID = 10123;
 
     public static final ItemJutsu.JutsuEnum HIDINGINASH = new ItemJutsu.JutsuEnum(2, "hiding_in_ash", 'B', 50d, new EntityHidingInAsh.EC.Jutsu());
 
-    public ItemTest(ElementsAhznbrusticaddonMod instance) {
+    public ItemTest(ElementsAgeofshinobiaddonMod instance) {
         super(instance, 366);
     }
 
-    public ItemTest(ElementsAhznbrusticaddonMod elements, int sortid) {
+    public ItemTest(ElementsAgeofshinobiaddonMod elements, int sortid) {
         super(elements, sortid);
     }
 
@@ -40,7 +40,7 @@ public class ItemTest extends ElementsAhznbrusticaddonMod.ModElement {
     @Override
     @SideOnly(Side.CLIENT)
     public void registerModels(ModelRegistryEvent event) {
-        ModelLoader.setCustomModelResourceLocation(block, 0, new ModelResourceLocation("ahnzbrusticaddon:test", "inventory"));
+        ModelLoader.setCustomModelResourceLocation(block, 0, new ModelResourceLocation("ageofshinobiaddon:test", "inventory"));
     }
 
     @SideOnly(Side.CLIENT)
