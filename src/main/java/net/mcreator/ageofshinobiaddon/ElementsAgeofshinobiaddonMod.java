@@ -233,11 +233,13 @@ public class ElementsAgeofshinobiaddonMod implements IFuelHandler, IWorldGenerat
         }
 
         public Object getServerGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
-            return id == GuiMedicalScrollGUI.GUIID ? new GuiMedicalScrollGUI.GuiContainerMod(world, x, y, z, player) : null;
+            //return id == GuiMedicalScrollGUI.GUIID ? new GuiMedicalScrollGUI.GuiContainerMod(world, x, y, z, player) : null;
+            return null;
         }
 
         public Object getClientGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
-            return id == GuiMedicalScrollGUI.GUIID ? new GuiMedicalScrollGUI.GuiWindow(world, x, y, z, player) : null;
+            //return id == GuiMedicalScrollGUI.GUIID ? new GuiMedicalScrollGUI.GuiWindow(world, x, y, z, player) : null;
+            return null;
         }
     }
 
