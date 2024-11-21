@@ -3,7 +3,7 @@
 // (powered by FernFlower decompiler)
 //
 
-package net.mcreator.ahnzbrusticaddon;
+package net.mcreator.ageofshinobiaddon;
 
 import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -11,8 +11,8 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 
-public class ClientProxyAhnzbrusticaddonMod implements IProxyAhznbrusticaddonMod {
-    public ClientProxyAhnzbrusticaddonMod() {
+public class ClientProxyAgeofshinobiaddonMod implements IProxyAgeofshinobiaddonMod {
+    public ClientProxyAgeofshinobiaddonMod() {
     }
 
     public void init(FMLInitializationEvent event) {
@@ -20,7 +20,7 @@ public class ClientProxyAhnzbrusticaddonMod implements IProxyAhznbrusticaddonMod
     //try to run with this file deleted.
 
     public void preInit(FMLPreInitializationEvent event) {
-        OBJLoader.INSTANCE.addDomain("ahnzbrusticaddon");
+        OBJLoader.INSTANCE.addDomain("ageofshinobiaddon");
     }
 
     public void postInit(FMLPostInitializationEvent event) {

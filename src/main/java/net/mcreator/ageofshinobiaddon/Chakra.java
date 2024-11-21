@@ -3,7 +3,7 @@
 // (powered by FernFlower decompiler)
 //
 
-package net.mcreator.ahnzbrusticaddon;
+package net.mcreator.ageofshinobiaddon;
 
 import com.google.common.collect.Maps;
 import io.netty.buffer.ByteBuf;
@@ -40,14 +40,14 @@ import net.narutomod.entity.EntityNinjaMob;
 import net.narutomod.gui.overlay.OverlayChakraDisplay;
 import net.narutomod.procedure.ProcedureUtils;
 
-@ElementsAhznbrusticaddonMod.ModElement.Tag
-public class Chakra extends ElementsAhznbrusticaddonMod.ModElement {
+@ElementsAgeofshinobiaddonMod.ModElement.Tag
+public class Chakra extends ElementsAgeofshinobiaddonMod.ModElement {
     private static final Map<EntityPlayer, PathwayPlayer> playerMap = Maps.newHashMap();
     private static final Map<EntityLivingBase, Pathway> livingMap = Maps.newHashMap();
     private static final String DATAKEY = "ChakraPathwaySystem";
     private static PathwayPlayer clientPlayerPathway = null;
 
-    public Chakra(ElementsAhznbrusticaddonMod instance) {
+    public Chakra(ElementsAgeofshinobiaddonMod instance) {
         super(instance, 395);
     }
 
@@ -198,7 +198,7 @@ public class Chakra extends ElementsAhznbrusticaddonMod.ModElement {
             }
 
             public static void sendToServer(double amountIn) {
-                AhnzbrusticaddonMod.PACKET_HANDLER.sendToServer(new ConsumeMessage(amountIn));
+                AgeofshinobiaddonMod.PACKET_HANDLER.sendToServer(new ConsumeMessage(amountIn));
             }
 
             public void toBytes(ByteBuf buf) {
@@ -236,7 +236,7 @@ public class Chakra extends ElementsAhznbrusticaddonMod.ModElement {
             }
 
             public static void sendToSelf(EntityPlayerMP player, double d1, double d2) {
-                AhnzbrusticaddonMod.PACKET_HANDLER.sendTo(new ServerMessage(d1, d2), player);
+                AgeofshinobiaddonMod.PACKET_HANDLER.sendTo(new ServerMessage(d1, d2), player);
             }
 
             public void toBytes(ByteBuf buf) {

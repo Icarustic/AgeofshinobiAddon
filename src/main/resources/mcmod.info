@@ -1,8 +1,8 @@
 [
 {
-  "modid": "ahznbrusticaddon",
-  "name": "AhznbrusticaddonMod",
-  "description": "Example placeholder mod.",
+  "modid": "ageofshinobiaddon",
+  "name": "AgeofshinobiaddonMod",
+  "description": "By ageofshinobi Dev Icarus, Sasuke.",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "",

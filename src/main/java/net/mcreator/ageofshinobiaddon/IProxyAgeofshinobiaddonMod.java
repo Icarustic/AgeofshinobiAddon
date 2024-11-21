@@ -3,14 +3,14 @@
 // (powered by FernFlower decompiler)
 //
 
-package net.mcreator.ahnzbrusticaddon;
+package net.mcreator.ageofshinobiaddon;
 
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 
-public interface IProxyAhznbrusticaddonMod {
+public interface IProxyAgeofshinobiaddonMod {
     void preInit(FMLPreInitializationEvent var1);
 
     void init(FMLInitializationEvent var1);

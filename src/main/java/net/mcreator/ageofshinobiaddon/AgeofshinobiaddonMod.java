@@ -3,7 +3,7 @@
 // (powered by FernFlower decompiler)
 //
 
-package net.mcreator.ahnzbrusticaddon;
+package net.mcreator.ageofshinobiaddon;
 
 import java.util.function.Supplier;
 import net.minecraft.block.Block;
@@ -30,26 +30,25 @@ import net.minecraftforge.fml.common.registry.EntityEntry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.registries.IForgeRegistryEntry;
 
 @Mod(
-        modid = "ahnzbrusticaddon",
+        modid = "ageofshinobiaddon",
         version = "5.0"
 )
-public class AhnzbrusticaddonMod {
-    public static final String MODID = "ahnzbrusticaddon";
+public class AgeofshinobiaddonMod {
+    public static final String MODID = "ageofshinobiaddon";
     public static final String VERSION = "5.0";
     public static final SimpleNetworkWrapper PACKET_HANDLER;
     @SidedProxy(
-            clientSide = "net.mcreator.ahnzbrusticaddon.ClientProxyAhnzbrusticaddonMod",
-            serverSide = "net.mcreator.ahnzbrustickaddon.ServerProxyAhnzbrusticaddonMod"
+            clientSide = "net.mcreator.ageofshinobiaddon.ClientProxyAgeofshinobiaddonMod",
+            serverSide = "net.mcreator.ageofshinobiaddon.ServerProxyAgeofshinobiaddonMod"
     )
-    public static IProxyAhznbrusticaddonMod proxy;
-    @Instance("ahnzbcursemarkaddon")
-    public static AhnzbrusticaddonMod instance;
-    public ElementsAhznbrusticaddonMod elements = new ElementsAhznbrusticaddonMod();
+    public static IProxyAgeofshinobiaddonMod proxy;
+    @Instance("ageofshinobiaddon")
+    public static AgeofshinobiaddonMod instance;
+    public ElementsAgeofshinobiaddonMod elements = new ElementsAgeofshinobiaddonMod();
 
-    public AhnzbrusticaddonMod() {
+    public AgeofshinobiaddonMod() {
     }
 
     @EventHandler
@@ -57,7 +56,7 @@ public class AhnzbrusticaddonMod {
         MinecraftForge.EVENT_BUS.register(this);
         GameRegistry.registerWorldGenerator(this.elements, 5);
         GameRegistry.registerFuelHandler(this.elements);
-        NetworkRegistry.INSTANCE.registerGuiHandler(this, new ElementsAhznbrusticaddonMod.GuiHandler());
+        NetworkRegistry.INSTANCE.registerGuiHandler(this, new ElementsAgeofshinobiaddonMod.GuiHandler());
         this.elements.preInit(event);
         MinecraftForge.EVENT_BUS.register(this.elements);
         this.elements.getElements().forEach((element) -> {
@@ -126,7 +125,7 @@ public class AhnzbrusticaddonMod {
     }
 
     static {
-        PACKET_HANDLER = NetworkRegistry.INSTANCE.newSimpleChannel("ahnzbrusticaddo:a");
+        PACKET_HANDLER = NetworkRegistry.INSTANCE.newSimpleChannel("ageofshinobiaddo:a");
         FluidRegistry.enableUniversalBucket();
     }
 }

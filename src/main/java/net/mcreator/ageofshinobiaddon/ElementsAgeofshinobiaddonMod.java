@@ -3,7 +3,7 @@
 // (powered by FernFlower decompiler)
 //
 
-package net.mcreator.ahnzbrusticaddon;
+package net.mcreator.ageofshinobiaddon;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -19,7 +19,7 @@ import java.util.function.Supplier;
 //import net.mcreator.ahznbcursemarkaddon.AhznbcursemarkaddonModVariables.MapVariables;
 //import net.mcreator.ahznbcursemarkaddon.AhznbcursemarkaddonModVariables.WorldVariables;
 //think its fixed imported from my own instead.
-//import net.mcreator.ahznbrusticaddon.gui.GuiMedicalScrollGUI;
+//import net.mcreator.ahznbageofshinobiaddon.gui.GuiMedicalScrollGUI;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -50,7 +50,7 @@ import net.minecraftforge.fml.common.registry.EntityEntry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.narutomod.gui.GuiMedicalScrollGUI;
 
-public class ElementsAhznbrusticaddonMod implements IFuelHandler, IWorldGenerator {
+public class ElementsAgeofshinobiaddonMod implements IFuelHandler, IWorldGenerator {
     public final List<ModElement> elements = new ArrayList();
     public final List<Supplier<Block>> blocks = new ArrayList();
     public final List<Supplier<Item>> items = new ArrayList();
@@ -60,7 +60,7 @@ public class ElementsAhznbrusticaddonMod implements IFuelHandler, IWorldGenerato
     public static Map<ResourceLocation, SoundEvent> sounds = new HashMap();
     private int messageID = 0;
 
-    public ElementsAhznbrusticaddonMod() {
+    public ElementsAgeofshinobiaddonMod() {
         /*
         sounds.put(new ResourceLocation("ahznbcursemarkaddon", "ketsuacativate"), new SoundEvent(new ResourceLocation("ahznbcursemarkaddon", "ketsuacativate")));
         sounds.put(new ResourceLocation("ahznbcursemarkaddon", "kestudeactivate"), new SoundEvent(new ResourceLocation("ahznbcursemarkaddon", "kestudeactivate")));
@@ -90,7 +90,7 @@ public class ElementsAhznbrusticaddonMod implements IFuelHandler, IWorldGenerato
 
         Collections.sort(this.elements);
         this.elements.forEach(ModElement::initElements);
-        this.addNetworkMessage(AhznbrusticaddonModVariables.WorldSavedDataSyncMessageHandler.class, AhznbrusticaddonModVariables.WorldSavedDataSyncMessage.class, Side.SERVER, Side.CLIENT);
+        this.addNetworkMessage(AgeofshinobiaddonModVariables.WorldSavedDataSyncMessageHandler.class, AgeofshinobiaddonModVariables.WorldSavedDataSyncMessage.class, Side.SERVER, Side.CLIENT);
     }
 
     public void registerSounds(RegistryEvent.Register<SoundEvent> event) {
@@ -128,14 +128,14 @@ public class ElementsAhznbrusticaddonMod implements IFuelHandler, IWorldGenerato
     @SubscribeEvent
     public void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
         if (!event.player.world.isRemote) {
-            WorldSavedData mapdata = AhznbrusticaddonModVariables.MapVariables.get(event.player.world);
-            WorldSavedData worlddata = AhznbrusticaddonModVariables.WorldVariables.get(event.player.world);
+            WorldSavedData mapdata = AgeofshinobiaddonModVariables.MapVariables.get(event.player.world);
+            WorldSavedData worlddata = AgeofshinobiaddonModVariables.WorldVariables.get(event.player.world);
             if (mapdata != null) {
-                AhnzbrusticaddonMod.PACKET_HANDLER.sendTo(new AhznbrusticaddonModVariables.WorldSavedDataSyncMessage(0, mapdata), (EntityPlayerMP)event.player);
+                AgeofshinobiaddonMod.PACKET_HANDLER.sendTo(new AgeofshinobiaddonModVariables.WorldSavedDataSyncMessage(0, mapdata), (EntityPlayerMP)event.player);
             }
 
             if (worlddata != null) {
-                AhnzbrusticaddonMod.PACKET_HANDLER.sendTo(new AhznbrusticaddonModVariables.WorldSavedDataSyncMessage(1, worlddata), (EntityPlayerMP)event.player);
+                AgeofshinobiaddonMod.PACKET_HANDLER.sendTo(new AgeofshinobiaddonModVariables.WorldSavedDataSyncMessage(1, worlddata), (EntityPlayerMP)event.player);
             }
         }
 
@@ -144,9 +144,9 @@ public class ElementsAhznbrusticaddonMod implements IFuelHandler, IWorldGenerato
     @SubscribeEvent
     public void onPlayerChangedDimension(PlayerEvent.PlayerChangedDimensionEvent event) {
         if (!event.player.world.isRemote) {
-            WorldSavedData worlddata = AhznbrusticaddonModVariables.WorldVariables.get(event.player.world);
+            WorldSavedData worlddata = AgeofshinobiaddonModVariables.WorldVariables.get(event.player.world);
             if (worlddata != null) {
-                AhnzbrusticaddonMod.PACKET_HANDLER.sendTo(new AhznbrusticaddonModVariables.WorldSavedDataSyncMessage(1, worlddata), (EntityPlayerMP)event.player);
+                AgeofshinobiaddonMod.PACKET_HANDLER.sendTo(new AgeofshinobiaddonModVariables.WorldSavedDataSyncMessage(1, worlddata), (EntityPlayerMP)event.player);
             }
         }
 
@@ -158,7 +158,7 @@ public class ElementsAhznbrusticaddonMod implements IFuelHandler, IWorldGenerato
 
         for(int var6 = 0; var6 < var5; ++var6) {
             Side side = var4[var6];
-            AhnzbrusticaddonMod.PACKET_HANDLER.registerMessage(handler, messageClass, this.messageID, side);
+            AgeofshinobiaddonMod.PACKET_HANDLER.registerMessage(handler, messageClass, this.messageID, side);
         }
 
         ++this.messageID;
@@ -189,10 +189,10 @@ public class ElementsAhznbrusticaddonMod implements IFuelHandler, IWorldGenerato
     }
 
     public static class ModElement implements Comparable<ModElement> {
-        protected final ElementsAhznbrusticaddonMod elements;
+        protected final ElementsAgeofshinobiaddonMod elements;
         protected final int sortid;
 
-        public ModElement(ElementsAhznbrusticaddonMod elements, int sortid) {
+        public ModElement(ElementsAgeofshinobiaddonMod elements, int sortid) {
             this.elements = elements;
             this.sortid = sortid;
         }
