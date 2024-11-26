@@ -9,6 +9,7 @@ import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
@@ -38,6 +39,7 @@ public class EntitySenkoSpirit extends ElementsAgeofshinobiaddonMod.ModElement {
     public EntitySenkoSpirit(ElementsAgeofshinobiaddonMod instance) {
         super(instance, 999);
     }
+
 
     @Override
     public void initElements() {
