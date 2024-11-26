@@ -1,92 +1,101 @@
 package net.mcreator.ageofshinobiaddon.item;
 
 import net.mcreator.ageofshinobiaddon.ElementsAgeofshinobiaddonMod;
+import net.mcreator.ageofshinobiaddon.entity.EntitySenkoSpirit;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.world.World;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.EntityEntryBuilder;
+import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.narutomod.creativetab.TabModTab;
-import net.narutomod.entity.EntityHidingInAsh;
 import net.narutomod.item.ItemJutsu;
+import net.narutomod.item.ItemJutsu.JutsuEnum.Type;
+import net.narutomod.procedure.ProcedureUtils;
 
 @ElementsAgeofshinobiaddonMod.ModElement.Tag
 public class ItemTest extends ElementsAgeofshinobiaddonMod.ModElement {
-    @GameRegistry.ObjectHolder("ageofshinobiaddon:test")
+    @ObjectHolder("ageofshinobiaddon:test")
     public static final Item block = null;
-    public static final int ENTITYID = 123;
-    public static final int ENTITY2ID = 10123;
-
-    public static final ItemJutsu.JutsuEnum HIDINGINASH = new ItemJutsu.JutsuEnum(2, "hiding_in_ash", 'B', 50d, new EntityHidingInAsh.EC.Jutsu());
+    public static final int ENTITYID = 366; // Example entity ID
+    public static final ItemJutsu.JutsuEnum SENKO = new ItemJutsu.JutsuEnum(0, "senko", 'B', 50d, new SenkoJutsu());
 
     public ItemTest(ElementsAgeofshinobiaddonMod instance) {
         super(instance, 366);
     }
 
-    public ItemTest(ElementsAgeofshinobiaddonMod elements, int sortid) {
-        super(elements, sortid);
-    }
-
-    @Override
     public void initElements() {
-        elements.items.add(() -> new RangedItem( HIDINGINASH));
+        this.elements.items.add(() -> {
+            return new RangedItem(SENKO);
+        });
     }
 
-    @Override
     @SideOnly(Side.CLIENT)
     public void registerModels(ModelRegistryEvent event) {
         ModelLoader.setCustomModelResourceLocation(block, 0, new ModelResourceLocation("ageofshinobiaddon:test", "inventory"));
     }
 
-    @SideOnly(Side.CLIENT)
-    @Override
-    public void preInit(FMLPreInitializationEvent event) {
-        //RenderingRegistry.registerEntityRenderingHandler(EntityBigFireball.class, renderManager -> {
-          //  return new RenderBigFireball(renderManager);
-       // });
+    public static class SenkoJutsu implements ItemJutsu.IJutsuCallback {
+        public SenkoJutsu() {
+        }
+
+        public boolean createJutsu(ItemStack stack, EntityLivingBase entity, float power) {
+            EntityLivingBase target = null;
+            RayTraceResult res = ProcedureUtils.objectEntityLookingAt(entity, 3.0);
+            if (res != null && res.entityHit instanceof EntityLivingBase) {
+                target = (EntityLivingBase) res.entityHit;
+                this.executeJutsu(entity, target, power);
+                return true;
+            }
+            return false;
+        }
+
+        public void executeJutsu(EntityLivingBase entity, EntityLivingBase target, float power) {
+            // Implementation of the jutsu execution
+        }
+
+        public static class PlayerHook {
+            public PlayerHook() {
+            }
+
+            @SubscribeEvent
+            public void onRightClickEntity(PlayerInteractEvent.EntityInteract event) {
+                // Handle right-click events if needed
+            }
+        }
     }
 
     public static class RangedItem extends ItemJutsu.Base {
         public RangedItem(ItemJutsu.JutsuEnum... list) {
-            super(ItemJutsu.JutsuEnum.Type.OTHER, list);
-            this.setRegistryName("test");
+            super(Type.OTHER, list);
             this.setUnlocalizedName("test");
-            this.setCreativeTab(TabModTab.tab);
-            //this.defaultCooldownMap[GREATFIREBALL.index] = 0;
-            //this.defaultCooldownMap[1] = 0;
+            this.setRegistryName("test");
+            this.setCreativeTab(CreativeTabs.COMBAT); // Set to a suitable creative tab
         }
 
-        @Override
         protected float getPower(ItemStack stack, EntityLivingBase entity, int timeLeft) {
-            ItemJutsu.JutsuEnum je = this.getCurrentJutsu(stack);
-            if (je == HIDINGINASH) {
-                return this.getPower(stack, entity, timeLeft, 1.0f, 15f);
-            } //else if (je == GREATFIREBALL) {
-                //return this.getPower(stack, entity, timeLeft, 0.1f, 30f);
-            //}
-            else {
-                return this.getPower(stack, entity, timeLeft, 1.0f, 30f);
-            }
-            //float power = 1f + (float)(this.getMaxUseDuration() - timeLeft) / (this.getCurrentJutsu(stack) == HIDINGINASH ? 10 : 20);
-            //return Math.min(power, this.getMaxPower(stack, entity));
+            return 1.0F; // Return the power value
         }
 
-        @Override
-        protected float getMaxPower(ItemStack stack, EntityLivingBase entity) {
-            ItemJutsu.JutsuEnum jutsu = this.getCurrentJutsu(stack);
-            float f = super.getMaxPower(stack, entity);
-            //if (jutsu == GFANNIHILATION || jutsu == GREATFLAME) {
-                //return Math.min(f, 30.0f);
-            //}
-            //else if (jutsu == GREATFIREBALL) {
-                //return Math.min(f, 10.0f);
-            //}
-            return f;
+        public ActionResult<ItemStack> onItemUse(World world, EntityPlayer player, EnumHand hand) {
+            return new ActionResult<>(EnumActionResult.FAIL, player.getHeldItem(hand));
+        }
+
+        public void onItemUse(ItemStack itemstack, World world, EntityLivingBase entityLivingBase, int timeLeft) {
+            // Handle item use logic
         }
     }
 }
