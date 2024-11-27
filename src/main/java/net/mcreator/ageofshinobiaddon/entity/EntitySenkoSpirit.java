@@ -253,36 +253,39 @@ public class EntitySenkoSpirit extends ElementsAgeofshinobiaddonMod.ModElement {
 
         @Override
         protected ResourceLocation getEntityTexture(EntitySpiritStrike entity) {
-            return new ResourceLocation("narutomod:textures/spirit_strike.png");
+            return new ResourceLocation("ageofshinobiaddon:textures/flyingraijin.png");
         }
     }
 
     @SideOnly(Side.CLIENT)
-    public static class ModelSenkoSpirit extends ModelBase {
-        private final ModelRenderer bone2;
-        private final ModelRenderer bone;
+    public static class ModelSenkoSpirit2 extends ModelBase {
+        private final ModelRenderer FlyinRaijin;
+        private final ModelRenderer bb_main;
+        private final ModelRenderer cube_r1;
 
-        public ModelSenkoSpirit() {
-            textureWidth = 32;
-            textureHeight = 32;
-            bone2 = new ModelRenderer(this);
-            bone2.setRotationPoint(0.0F, 0.0F, 0.0F);
-            bone2.cubeList.add(new ModelBox(bone2, 12, 0, -1.5F, -1.0F, -1.5F, 3, 2, 3, 0.0F, false));
-            bone2.cubeList.add(new ModelBox(bone2, 9, 5, -1.5F, -1.5F, -1.5F, 3, 3, 3, -0.1F, false));
-            bone2.cubeList.add(new ModelBox(bone2, 0, 8, -1.5F, -2.0F, -1.5F, 3, 4, 3, -0.3F, false));
-            bone2.cubeList.add(new ModelBox(bone2, 0, 0, -1.5F, -2.5F, -1.5F, 3, 5, 3, -0.5F, false));
-            bone = new ModelRenderer(this);
-            bone.setRotationPoint(0.0F, 3.5F, 0.0F);
-            setRotationAngle(bone, 0.0F, 0.5236F, 0.0F);
-            bone.cubeList.add(new ModelBox(bone, 8, 17, -1.0F, -1.0F, -1.0F, 2, 2, 2, 0.1F, false));
-            bone.cubeList.add(new ModelBox(bone, 0, 15, -1.0F, -1.5F, -1.0F, 2, 3, 2, -0.1F, false));
-            bone.cubeList.add(new ModelBox(bone, 12, 11, -1.0F, -2.0F, -1.0F, 2, 4, 2, -0.3F, false));
+        public ModelSenkoSpirit2 () {
+            textureWidth = 64;
+            textureHeight = 64;
+
+            FlyinRaijin = new ModelRenderer(this);
+            FlyinRaijin.setRotationPoint(0.0F, 24.0F, 0.0F);
+
+
+            bb_main = new ModelRenderer(this);
+            bb_main.setRotationPoint(0.0F, 24.0F, 0.0F);
+
+
+            cube_r1 = new ModelRenderer(this);
+            cube_r1.setRotationPoint(-3.5485F, -16.6233F, 10.5475F);
+            bb_main.addChild(cube_r1);
+            setRotationAngle(cube_r1, 0.0F, 0.0F, 3.1416F);
+            cube_r1.cubeList.add(new ModelBox(cube_r1, 0, -59, -0.5215F, 8.1233F, -46.6414F, 0, 29, 65, 0.0F, false));
         }
 
         @Override
         public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
-            bone2.render(f5);
-            bone.render(f5);
+            FlyinRaijin.render(f5);
+            bb_main.render(f5);
         }
 
         public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {
@@ -293,11 +296,11 @@ public class EntitySenkoSpirit extends ElementsAgeofshinobiaddonMod.ModElement {
     }
 
     @SideOnly(Side.CLIENT)
-    public static class ModelSenkoSpirit2 extends ModelBase {
+    public static class ModelSenkoSpirit extends ModelBase {
         private final ModelRenderer bone2;
         private final ModelRenderer bone;
 
-        public ModelSenkoSpirit2() {
+        public ModelSenkoSpirit() {
             textureWidth = 32;
             textureHeight = 32;
             bone2 = new ModelRenderer(this);
