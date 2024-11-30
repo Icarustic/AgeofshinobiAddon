@@ -5,29 +5,30 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelBox;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.entity.Render;
-import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
-import net.minecraft.init.SoundEvents;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.registry.EntityEntryBuilder;
-import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.common.registry.EntityEntryBuilder;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraft.world.World;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.SoundEvent;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.entity.Render;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.item.ItemStack;
 import net.narutomod.item.ItemJutsu;
+import net.narutomod.ElementsNarutomodMod;
 
 import java.util.List;
 
@@ -39,7 +40,6 @@ public class EntitySenkoSpirit extends ElementsAgeofshinobiaddonMod.ModElement {
     public EntitySenkoSpirit(ElementsAgeofshinobiaddonMod instance) {
         super(instance, 999);
     }
-
 
     @Override
     public void initElements() {
@@ -60,6 +60,27 @@ public class EntitySenkoSpirit extends ElementsAgeofshinobiaddonMod.ModElement {
 
     public static class EC extends EntityScalableProjectile.Base {
         private final float damage = 10.0f; // Damage dealt to the target
+        private int ticksAlive = 0; // Ticks the projectile has been alive
+        private static final int MAX_LIFETIME = 200; // Maximum lifetime before despawning
+
+
+        @Override
+        public void onUpdate() {
+            super.onUpdate();
+            ticksAlive++;
+
+            // Check if the projectile has landed on the ground
+            if (this.onGround) {
+                if (ticksAlive > MAX_LIFETIME) {
+                    this.setDead(); // Despawn the projectile after MAX_LIFETIME
+                }
+            }
+
+            // Despawn the projectile if it has been alive for too long
+            if (ticksAlive > MAX_LIFETIME) {
+                this.setDead();
+            }
+        }
 
         public EC(World worldIn) {
             super(worldIn);
@@ -222,13 +243,18 @@ public class EntitySenkoSpirit extends ElementsAgeofshinobiaddonMod.ModElement {
             GlStateManager.pushMatrix();
             GlStateManager.translate(x, y, z);
             this.bindEntityTexture(entity);
+
+            // Set the rotation based on the entity's yaw and pitch
+            GlStateManager.rotate(-entity.rotationYaw, 0.0F, 1.0F, 0.0F); // Yaw rotation
+            GlStateManager.rotate(entity.rotationPitch, 1.0F, 0.0F, 0.0F); // Pitch rotation
+
             this.model.render(entity, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F); // Render the model
             GlStateManager.popMatrix();
         }
 
         @Override
         protected ResourceLocation getEntityTexture(EC entity) {
-            return new ResourceLocation("narutomod:textures/teleporting_projectile.png");
+            return new ResourceLocation("ageofshinobiaddon:textures/shark.png");
         }
     }
 
@@ -253,39 +279,36 @@ public class EntitySenkoSpirit extends ElementsAgeofshinobiaddonMod.ModElement {
 
         @Override
         protected ResourceLocation getEntityTexture(EntitySpiritStrike entity) {
-            return new ResourceLocation("ageofshinobiaddon:textures/flyingraijin.png");
+            return new ResourceLocation("ageofshinobiaddon:textures/shark.png");
         }
     }
 
     @SideOnly(Side.CLIENT)
-    public static class ModelSenkoSpirit2 extends ModelBase {
-        private final ModelRenderer FlyinRaijin;
-        private final ModelRenderer bb_main;
-        private final ModelRenderer cube_r1;
+    public static class ModelSenkoSpirit extends ModelBase {
+        private final ModelRenderer bone2;
+        private final ModelRenderer bone;
 
-        public ModelSenkoSpirit2 () {
-            textureWidth = 64;
-            textureHeight = 64;
-
-            FlyinRaijin = new ModelRenderer(this);
-            FlyinRaijin.setRotationPoint(0.0F, 24.0F, 0.0F);
-
-
-            bb_main = new ModelRenderer(this);
-            bb_main.setRotationPoint(0.0F, 24.0F, 0.0F);
-
-
-            cube_r1 = new ModelRenderer(this);
-            cube_r1.setRotationPoint(-3.5485F, -16.6233F, 10.5475F);
-            bb_main.addChild(cube_r1);
-            setRotationAngle(cube_r1, 0.0F, 0.0F, 3.1416F);
-            cube_r1.cubeList.add(new ModelBox(cube_r1, 0, -59, -0.5215F, 8.1233F, -46.6414F, 0, 29, 65, 0.0F, false));
+        public ModelSenkoSpirit() {
+            textureWidth = 32;
+            textureHeight = 32;
+            bone2 = new ModelRenderer(this);
+            bone2.setRotationPoint(0.0F, 0.0F, 0.0F);
+            bone2.cubeList.add(new ModelBox(bone2, 12, 0, -1.5F, -1.0F, -1.5F, 3, 2, 3, 0.0F, false));
+            bone2.cubeList.add(new ModelBox(bone2, 9, 5, -1.5F, -1.5F, -1.5F, 3, 3, 3, -0.1F, false));
+            bone2.cubeList.add(new ModelBox(bone2, 0, 8, -1.5F, -2.0F, -1.5F, 3, 4, 3, -0.3F, false));
+            bone2.cubeList.add(new ModelBox(bone2, 0, 0, -1.5F, -2.5F, -1.5F, 3, 5, 3, -0.5F, false));
+            bone = new ModelRenderer(this);
+            bone.setRotationPoint(0.0F, 3.5F, 0.0F);
+            setRotationAngle(bone, 0.0F, 0.5236F, 0.0F);
+            bone.cubeList.add(new ModelBox(bone, 8, 17, -1.0F, -1.0F, -1.0F, 2, 2, 2, 0.1F, false));
+            bone.cubeList.add(new ModelBox(bone, 0, 15, -1.0F, -1.5F, -1.0F, 2, 3, 2, -0.1F, false));
+            bone.cubeList.add(new ModelBox(bone, 12, 11, -1.0F, -2.0F, -1.0F, 2, 4, 2, -0.3F, false));
         }
 
         @Override
         public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
-            FlyinRaijin.render(f5);
-            bb_main.render(f5);
+            bone2.render(f5);
+            bone.render(f5);
         }
 
         public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {
@@ -296,11 +319,11 @@ public class EntitySenkoSpirit extends ElementsAgeofshinobiaddonMod.ModElement {
     }
 
     @SideOnly(Side.CLIENT)
-    public static class ModelSenkoSpirit extends ModelBase {
+    public static class ModelSenkoSpirit2 extends ModelBase {
         private final ModelRenderer bone2;
         private final ModelRenderer bone;
 
-        public ModelSenkoSpirit() {
+        public ModelSenkoSpirit2() {
             textureWidth = 32;
             textureHeight = 32;
             bone2 = new ModelRenderer(this);
