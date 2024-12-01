@@ -1,6 +1,6 @@
 {
   "parent": "ageofshinobiaddon:custom/test",
   "textures": {
-    "0": "ageofashinobiaddon:blocks/test"
+    "0": "ageofshinobiaddon:blocks/test"
   }
 }

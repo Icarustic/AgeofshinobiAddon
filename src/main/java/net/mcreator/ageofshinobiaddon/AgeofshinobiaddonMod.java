@@ -125,7 +125,7 @@ public class AgeofshinobiaddonMod {
     }
 
     static {
-        PACKET_HANDLER = NetworkRegistry.INSTANCE.newSimpleChannel("ageofshinobiaddo:a");
+        PACKET_HANDLER = NetworkRegistry.INSTANCE.newSimpleChannel("ageofshinobiaddon:a");
         FluidRegistry.enableUniversalBucket();
     }
 }

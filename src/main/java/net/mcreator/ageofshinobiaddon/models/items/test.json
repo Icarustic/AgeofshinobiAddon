@@ -1,0 +1,6 @@
+{
+  "parent": "ageofshinobiaddon:custom/test.json",
+  "textures": {
+    "0": "ageofshinobiaddon:blocks/test.png"
+  }
+}

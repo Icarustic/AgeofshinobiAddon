@@ -254,7 +254,7 @@ public class EntitySenkoSpirit extends ElementsAgeofshinobiaddonMod.ModElement {
 
         @Override
         protected ResourceLocation getEntityTexture(EC entity) {
-            return new ResourceLocation("ageofshinobiaddon:textures/shark.png");
+            return new ResourceLocation("ageofshinobiaddon:textures/flying_raijin.png");
         }
     }
 
@@ -279,7 +279,7 @@ public class EntitySenkoSpirit extends ElementsAgeofshinobiaddonMod.ModElement {
 
         @Override
         protected ResourceLocation getEntityTexture(EntitySpiritStrike entity) {
-            return new ResourceLocation("ageofshinobiaddon:textures/shark.png");
+            return new ResourceLocation("ageofshinobiaddon:textures/flying_raijin.png");
         }
     }
 

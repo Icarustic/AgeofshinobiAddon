@@ -14,7 +14,7 @@ apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
 version = '0.0.1-1.12.2'
-group = 'net.icarus.ageofshinobiaddon' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+group = 'net.mcreator.ageofshinobiaddon' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'addon'
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
@@ -113,6 +113,11 @@ publishing {
         maven { url 'https://cursemaven.com' }
         maven {
             url "file:///${project.projectDir}/mcmodsrepo"
+        }
+    }
+    sourceSets {
+        main {
+            output.resourcesDir = output.classesDir
         }
     }
 }
