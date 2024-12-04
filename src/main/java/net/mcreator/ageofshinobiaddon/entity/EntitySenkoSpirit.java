@@ -4,7 +4,9 @@ import net.mcreator.ageofshinobiaddon.ElementsAgeofshinobiaddonMod;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelBox;
 import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
 import net.minecraft.potion.PotionEffect;
@@ -29,6 +31,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.item.ItemStack;
+import net.narutomod.Particles;
 import net.narutomod.item.ItemJutsu;
 import net.narutomod.ElementsNarutomodMod;
 import org.lwjgl.opengl.GL11;
@@ -278,11 +281,14 @@ public class EntitySenkoSpirit extends ElementsAgeofshinobiaddonMod.ModElement {
         public void onUpdate() {
             super.onUpdate();
             if (!this.world.isRemote && this.target != null) {
-                // Make the spirit strike hover above the target
+                // Make the outer rasen hover above the target
                 this.setPosition(this.target.posX, this.target.posY + 1.0D, this.target.posZ);
 
                 // Increment the ticks alive
                 ticksAlive++;
+
+                // Rotate the entity
+                //this.rotationPitch += 5.0F; // Adjust the rotation speed as needed
 
                 // Deal damage periodically
 
@@ -316,6 +322,7 @@ public class EntitySenkoSpirit extends ElementsAgeofshinobiaddonMod.ModElement {
             super(worldIn);
             this.setSize(0.5f, 0.5f); // Size of the spirit strike entity
             this.setGlowing(true);
+
         }
 
         public EntitySpiritStrike(World worldIn, EntityLivingBase target, EntityLivingBase shooter) {
@@ -324,6 +331,7 @@ public class EntitySenkoSpirit extends ElementsAgeofshinobiaddonMod.ModElement {
             this.shooter = shooter; // Set the shooter reference
             this.setPosition(target.posX, target.posY + 1.0D, target.posZ); // Spawn above the target
         }
+
 
         @Override
         protected void entityInit() {
@@ -352,6 +360,7 @@ public class EntitySenkoSpirit extends ElementsAgeofshinobiaddonMod.ModElement {
                             this.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 1.0F, 1.0F);
                             this.world.newExplosion(this, this.posX, this.posY, this.posZ, 2.0F, false, false); // Explosion effect
                             explosionTickCounter = 0; // Reset the explosion counter
+
                         }
                     }
                 }
@@ -413,6 +422,8 @@ public class EntitySenkoSpirit extends ElementsAgeofshinobiaddonMod.ModElement {
         public void doRender(EntitySwirls entity, double x, double y, double z, float entityYaw, float partialTicks) {
             GlStateManager.pushMatrix();
             GlStateManager.translate(x, y, z);
+            OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240, 240);
+            GlStateManager.color(1.0F, 1.0F, 1.0F, 2.0F);
             this.bindEntityTexture(entity);
             this.model.render(entity, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F); // Render the model
             GlStateManager.popMatrix();
@@ -440,22 +451,26 @@ public class EntitySenkoSpirit extends ElementsAgeofshinobiaddonMod.ModElement {
             // Render the opaque model first
             GlStateManager.pushMatrix();
             GlStateManager.translate(x, y, z);
+            OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240, 240);
+            GlStateManager.color(1.0F, 1.0F, 1.0F, 2.0F);
             this.bindEntityTexture(entity); // Bind the texture for the opaque model
             GlStateManager.enableDepth(); // Enable depth testing
             this.modelOpaque.render(entity, 0.0F, 0.0F, 0.0F, entityYaw, partialTicks, 0.0625F); // Render opaque model
             GlStateManager.popMatrix();
 
+
             // Render the transparent model second
             GlStateManager.pushMatrix();
             GlStateManager.translate(x, y, z);
-
+            GlStateManager.rotate(entity.ticksExisted * 15.0F, 0.0F, 1.0F, 0.0F); // Rotate the model around the Y-axis
             // Enable blending for transparency
             GlStateManager.enableBlend();
             GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-
+            //light code
+            OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240, 240);
+            GlStateManager.color(1.0F, 1.0F, 1.0F, 2.0F);
             // Bind the texture for the transparent model
             this.bindEntityTexture(entity); // Make sure to bind the correct texture for the transparent model
-
             // Render the transparent model
             this.modelTransparent.render(entity, 0.0F, 0.0F, 0.0F, entityYaw, partialTicks, 0.0625F);
 
